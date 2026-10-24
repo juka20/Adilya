@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Для Адили ❤️</title>
+<style>
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Georgia, serif;
+    color: white;
+    background: linear-gradient(135deg, #240018, #700038, #d6336c);
+    overflow-x: hidden;
+    text-align: center;
+}
+.screen {
+    display: none;
+    min-height: 100vh;
+    padding: 30px 18px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.screen.active {
+    display: flex;
+}
+h1 {
+    font-size: clamp(28px, 7vw, 42px);
+    margin-bottom: 20px;
+}
+p {
+    max-width: 650px;
+    font-size: 19px;
+    line-height: 1.8;
+}
+button, select, input, textarea {
+    font-family: inherit;
+    font-size: 17px;
+    border: none;
+    border-radius: 15px;
+    padding: 13px 20px;
+    margin: 8px;
+}
+button {
+    cursor: pointer;
+    transition: transform .25s, background .25s;
+}
+.yes {
+    background: #ff4f87;
+    color: white;
+    font-weight: bold;
+}
+.no {
+    background: white;
+    color: #c2185b;
+}
+.next {
+    background: white;
+    color: #b00050;
+    margin-top: 20px;
+}
+input, select, textarea {
+    width: min(90%, 350px);
+    color: #54112e;
+}
+textarea {
+    min-height: 80px;
+}
+label {
+    margin-top: 10px;
+}
+.hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+}
+.heart {
+    position: absolute;
+    bottom: -30px;
+    animation: floatUp linear forwards;
+    opacity: .8;
+}
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+#heartArt {
+    font-size: clamp(10px, 2.5vw, 20px);
+    line-height: 1.15;
+    white-space: pre;
+    color: #ffb5d0;
+    text-shadow: 0 0 12px #ff4f87;
+}
+.reasons {
+    max-width: 650px;
+    text-align: left;
+    line-height: 1.8;
+}
+.small {
+    font-size: 14px;
+    opacity: .8;
+}
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts"></div>
+<!-- Страница 1: Признание -->
+<section class="screen active" id="page1">
+    <h1>Для тебя, Адиля ❤️</h1>
+    <p>
+        Знаешь, Адиля, раньше я думал, что любовь — это просто
+        красивое слово из фильмов. Но встретив тебя, я понял,
+        что это космос, тепло и абсолютное счастье.
+        Рядом с тобой мне хочется становиться лучше.
+        Я люблю тебя больше, чем можно выразить словами.
+    </p>
+    <p>Ты стала для меня кем-то по-настоящему особенным.</p>
+    <button class="next" onclick="goTo('page2')">
+        У меня есть вопрос...
+    </button>
+</section>
+<!-- Страница 2: Главный вопрос -->
+<section class="screen" id="page2">
+    <h1>Адиля, станешь моей девушкой? 💗</h1>
+    <p>Я очень хочу, чтобы у нас всё получилось.</p>
+    <p>Попробуй нажать на «Нет» 😏</p>
+    <div>
+        <button class="yes" id="yesButton" onclick="sayYes()">
+            Да ❤️
+        </button>
+        <button class="no" id="noButton" onclick="moveNo()">
+            Нет 💔
+        </button>
+    </div>
+</section>
+<!-- Страница 3: Она согласилась -->
+<section class="screen" id="page3">
+    <h1>ТЫ СКАЗАЛА ДА?! ❤️</h1>
+    <p>
+        Адиля, ты даже не представляешь, насколько сильно
+        ты сейчас меня обрадовала.
+    </p>
+    <p>
+        Я обещаю ценить тебя, заботиться о тебе и делать всё,
+        чтобы рядом со мной ты улыбалась чаще.
+    </p>
+    <button class="next" onclick="goTo('page4')">
+        У меня есть ещё кое-что...
+    </button>
+</section>
+<!-- Страница 4: Приглашение на свидание -->
+<section class="screen" id="page4">
+    <h1>Пойдём на свидание? 🌹</h1>
+    <p>
+        Я хочу провести время с тобой, погулять, поговорить
+        обо всём на свете и просто быть рядом.
+    </p>
+    <button class="yes" onclick="goTo('page5')">
+        Давай выберем день ❤️
+    </button>
+</section>
+<!-- Страница 5: Выбор даты -->
+<section class="screen" id="page5">
+    <h1>Наше свидание 💌</h1>
+    <p>Выбери, когда и где тебе было бы удобно.</p>
+    <label for="date">Дата:</label>
+    <input type="date" id="date">
+    <label for="time">Время:</label>
+    <select id="time">
+        <option value="14:00">14:00</option>
+        <option value="15:00">15:00</option>
+        <option value="16:00">16:00</option>
+        <option value="17:00">17:00</option>
+        <option value="18:00">18:00</option>
+        <option value="19:00">19:00</option>
+    </select>
+    <label for="place">Место:</label>
+    <select id="place">
+        <option>Парк 🌳</option>
+        <option>Кафе ☕</option>
+        <option>Прогулка у моря 🌊</option>
+        <option>Кино 🎬</option>
+        <option>Выберем вместе 💗</option>
+    </select>
+    <textarea id="wish" placeholder="Твои пожелания..."></textarea>
+    <button class="yes" onclick="saveDate()">
+        Это мой выбор ❤️
+    </button>
+    <button class="next" onclick="goTo('page7')">
+        Почему я тебя люблю?
+    </button>
+</section>
+<!-- Страница 6: Подтверждение свидания -->
+<section class="screen" id="page6">
+    <h1>У нас есть план! 💕</h1>
+    <div id="dateSummary"></div>
+    <p>Я уже жду нашей встречи ❤️</p>
+    <button class="yes" onclick="sendEmail()">
+        Отправить ответ по почте 💌
+    </button>
+    <p class="small">
+        Для отправки откроется почтовое приложение.
+    </p>
+    <button class="next" onclick="goTo('page7')">
+        99 причин, почему я тебя люблю
+    </button>
+</section>
+<!-- Страница 7: 99 причин -->
+<section class="screen" id="page7">
+    <h1>99 причин, почему я тебя люблю 💗</h1>
+    <div class="reasons" id="reasons"></div>
+    <button class="next" onclick="goTo('page8')">
+        И последнее...
+    </button>
+</section>
+<!-- Страница 8: Сердце из имени -->
+<section class="screen" id="page8">
+    <h1>Это всё для тебя, Адиля ❤️</h1>
+    <div id="heartArt"></div>
+    <p>
+        Из всех людей в этом мире я рад, что встретил именно тебя.
+        Ты для меня особенная. ❤️
+    </p>
+    <button class="yes" onclick="celebrate()">
+        Обними меня виртуально 🫂
+    </button>
+</section>
+<script>
+// Переход между страницами
+function goTo(id) {
+    document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+    if (id === 'page8') {
+        createHeartArt();
+    }
+}
+// Кнопка «Нет» убегает, а «Да» увеличивается
+let noClicks = 0;
+let yesScale = 1;
+function moveNo() {
+    const noButton = document.getElementById('noButton');
+    const yesButton = document.getElementById('yesButton');
+    const messages = [
+        'Уверена? 🥺',
+        'Ой, промахнулась!',
+        'Не получится 😜',
+        'Может, всё-таки «Да»?',
+        'Ну пожааалуйста ❤️',
+        'Кнопка убегает!',
+        'Попробуй ещё раз 😏'
+    ];
+    noClicks++;
+    noButton.textContent =
+        messages[Math.min(noClicks - 1, messages.length - 1)];
+    noButton.style.transform =
+        `scale(${Math.max(0.35, 1 - noClicks * 0.09)})`;
+    yesScale = Math.min(2, yesScale + 0.15);
+    yesButton.style.transform = `scale(${yesScale})`;
+    noButton.style.position = 'relative';
+    noButton.style.left = (Math.random() * 100 - 50) + 'px';
+    noButton.style.top = (Math.random() * 60 - 30) + 'px';
+    if (noClicks >= 8) {
+        noButton.textContent = 'Ладно, нажми «Да» ❤️';
+        noButton.style.opacity = '0.5';
+    }
+}
+// Если нажала «Да»
+function sayYes() {
+    goTo('page3');
+    celebrate();
+}
+// Плавающие сердечки
+function createHeart() {
+    const heart = document.createElement('span');
+    heart.className = 'heart';
+    heart.textContent = ['❤️', '💗', '💕', '💖', '💘'][
+        Math.floor(Math.random() * 5)
+    ];
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = (15 + Math.random() * 25) + 'px';
+    heart.style.animationDuration = (4 + Math.random() * 5) + 's';
+    document.getElementById('hearts').appendChild(heart);
+    setTimeout(() => heart.remove(), 9000);
+}
+setInterval(createHeart, 350);
+// Салют из сердечек
+function celebrate() {
+    for (let i = 0; i < 50; i++) {
+        setTimeout(createHeart, i * 35);
+    }
+}
+// Сердце из имени АДИЛЯ
+function createHeartArt() {
+    const rows = [
+        '    АДИЛЯ       АДИЛЯ    ',
+        '  АДИЛЯАДИЛЯ   АДИЛЯАДИЛЯ  ',
+        ' АДИЛЯАДИЛЯАДИЛЯАДИЛЯАДИЛЯ ',
+        ' АДИЛЯАДИЛЯАДИЛЯАДИЛЯАДИЛЯ ',
+        '  АДИЛЯАДИЛЯАДИЛЯАДИЛЯАДИЛЯ ',
+        '   АДИЛЯАДИЛЯАДИЛЯАДИЛЯ   ',
+        '     АДИЛЯАДИЛЯАДИЛЯ     ',
+        '       АДИЛЯАДИЛЯ       ',
+        '         АДИЛЯ         ',
+        '          ❤️          '
+    ];
+    document.getElementById('heartArt').textContent =
+        rows.join('\n');
+}
+// Выбор и сохранение даты свидания
+function saveDate() {
+    const date = document.getElementById('date').value;
+    const time = document.getElementById('time').value;
+    const place = document.getElementById('place').value;
+    const wish = document.getElementById('wish').value;
+    if (!date) {
+        alert('Выбери дату нашего свидания ❤️');
+        return;
+    }
+    const data = {
+        date: date,
+        time: time,
+        place: place,
+        wish: wish
+    };
+    localStorage.setItem('adilyaDate', JSON.stringify(data));
+    document.getElementById('dateSummary').innerHTML = `
+        <p>📅 Дата: ${escapeHTML(date)}</p>
+        <p>🕒 Время: ${escapeHTML(time)}</p>
+        <p>📍 Место: ${escapeHTML(place)}</p>
+        <p>💌 Пожелание: ${
+            escapeHTML(wish || 'Главное — быть вместе ❤️')
+        }</p>
+    `;
+    goTo('page6');
+}
+// Защита текста, введённого пользователем
+function escapeHTML(text) {
+    return String(text).replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    })[char]);
+}
+// Отправка информации по электронной почте
+function sendEmail() {
+    const saved = localStorage.getItem('adilyaDate');
+    if (!saved) {
+        alert('Сначала выбери дату свидания!');
+        return;
+    }
+    const data = JSON.parse(saved);
+    // Замени YOUR_EMAIL на свой настоящий адрес.
+    const email = 'YOUR_EMAIL';
+    const subject = encodeURIComponent('Наше свидание ❤️');
+    const body = encodeURIComponent(
+        `Адиля выбрала свидание!\n\n` +
+        `Дата: ${data.date}\n` +
+        `Время: ${data.time}\n` +
+        `Место: ${data.place}\n` +
+        `Пожелание: ${data.wish || 'Нет'}`
+    );
+    if (email === 'YOUR_EMAIL') {
+        alert(
+            'Чтобы получать ответы по почте, замени YOUR_EMAIL на свой адрес в коде.'
+        );
+        return;
+    }
+    window.location.href =
+        `mailto:${email}?subject=${subject}&body=${body}`;
+}
+// 99 причин, почему я люблю Адилю
+const reasonsList = [
+    'За твою улыбку.',
+    'За твой смех.',
+    'За то, что ты есть.',
+    'За твою доброту.',
+    'За твою красоту.',
+    'За твой голос.',
+    'За твои глаза.',
+    'За то, как ты разговариваешь.',
+    'За то, что ты особенная.',
+    'За то, что рядом с тобой я счастлив.',
+    'За твою искренность.',
+    'За твою нежность.',
+    'За твой характер.',
+    'За твои эмоции.',
+    'За то, что ты умеешь удивлять.',
+    'За то, что ты вдохновляешь меня.',
+    'За то, что с тобой интересно.',
+    'За твои маленькие привычки.',
+    'За то, как ты выражаешь свои мысли.',
+    'За то, что ты можешь поднять мне настроение.',
+    'За твою заботу.',
+    'За твою внимательность.',
+    'За твою индивидуальность.',
+    'За то, что ты не похожа на других.',
+    'За твои мечты.',
+    'За твои цели.',
+    'За твою улыбку в сообщениях.',
+    'За каждое наше общение.',
+    'За каждую минуту с тобой.',
+    'За то, что я думаю о тебе.',
+    'За то, что ты заставляешь моё сердце биться быстрее.',
+    'За то, что ты делаешь обычный день лучше.',
+    'За то, что ты умеешь быть собой.',
+    'За твою милоту.',
+    'За твою энергию.',
+    'За твои интересы.',
+    'За твой взгляд на мир.',
+    'За то, что ты умеешь удивлять.',
+    'За то, что мне хочется узнавать тебя лучше.',
+    'За то, что ты вызываешь у меня улыбку.',
+    'За то, что мне приятно слышать твоё имя.',
+    'За то, что я хочу видеть тебя счастливой.',
+    'За то, что мне хочется тебя поддерживать.',
+    'За то, что я хочу быть рядом.',
+    'За то, что ты вдохновляешь меня становиться лучше.',
+    'За то, что ты для меня важна.',
+    'За твою неповторимость.',
+    'За твои милые реакции.',
+    'За твоё чувство юмора.',
+    'За то, что ты умеешь быть настоящей.',
+    'За то, что мне хочется делиться с тобой новостями.',
+    'За то, что мне интересно твоё мнение.',
+    'За то, что я хочу слушать твои истории.',
+    'За то, что мне хочется проводить с тобой время.',
+    'За то, что ты делаешь мир теплее.',
+    'За то, что ты вызываешь во мне нежность.',
+    'За то, что ты стала важной частью моих мыслей.',
+    'За то, что я рад нашему знакомству.',
+    'За то, что ты приносишь радость.',
+    'За то, что с тобой хочется мечтать.',
+    'За то, что ты умеешь быть удивительной.',
+    'За твою непредсказуемость.',
+    'За твою открытость.',
+    'За твою мягкость.',
+    'За твою силу.',
+    'За то, что ты можешь быть разной.',
+    'За то, что мне хочется узнавать твои стороны.',
+    'За то, что ты даришь мне эмоции.',
+    'За то, что ты занимаешь особое место в моём сердце.',
+    'За то, что мне хочется делать тебе приятное.',
+    'За то, что я хочу видеть твою улыбку.',
+    'За то, что ты умеешь быть интересной.',
+    'За то, что ты не перестаёшь меня удивлять.',
+    'За то, что ты для меня не просто человек.',
+    'За то, что ты делаешь мои дни ярче.',
+    'За то, что ты даришь мне вдохновение.',
+    'За то, что я хочу создавать с тобой воспоминания.',
+    'За то, что мне хочется гулять с тобой.',
+    'За то, что я хочу смеяться с тобой.',
+    'За то, что я хочу узнавать тебя каждый день.',
+    'За то, что мне важно твоё настроение.',
+    'За то, что я хочу тебя радовать.',
+    'За то, что мне хочется быть честным с тобой.',
+    'За то, что ты вызываешь во мне тёплые чувства.',
+    'За то, что я хочу уважать твои желания.',
+    'За то, что я хочу беречь твоё доверие.',
+    'За то, что мне хочется быть рядом в трудные моменты.',
+    'За то, что я хочу разделять с тобой радость.',
+    'За то, что ты умеешь делать моменты особенными.',
+    'За то, что я рад узнавать тебя.',
+    'За то, что ты появилась в моей жизни.',
+    'За то, что мне хочется говорить тебе приятные слова.',
+    'За то, что ты заслуживаешь счастья.',
+    'За то, что мне хочется видеть тебя любимой.',
+    'За то, что ты остаёшься собой.',
+    'За то, что ты — это ты.',
+    'За все моменты, которые нас ещё ждут.',
+    'За возможность однажды гулять с тобой за руку.',
+    'За то, что я могу сказать тебе эти слова.',
+    'И просто потому, что я люблю тебя, Адиля. ❤️'
+];
+const reasonsContainer = document.getElementById('reasons');
+reasonsList.forEach((reason, index) => {
+    const item = document.createElement('p');
+    item.textContent = `${index + 1}. ${reason}`;
+    reasonsContainer.appendChild(item);
+});
+</script>
+</body>
+</html>
