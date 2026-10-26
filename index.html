@@ -101,10 +101,51 @@ label {
 }
 .reasons {
     max-width: 650px;
+    width: 100%;
     text-align: left;
     line-height: 1.8;
 }
 .small {
+    font-size: 14px;
+    opacity: .8;
+}
+/* Галерея фотографий */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    width: min(100%, 500px);
+    margin: 20px auto;
+}
+.photo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    border: 2px dashed #ffb5d0;
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffb5d0;
+    cursor: pointer;
+    margin: 0;
+}
+.photo input {
+    display: none;
+}
+.photo img {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: 0;
+}
+.photo span {
+    font-size: 18px;
+    line-height: 1.8;
+}
+.gallery-hint {
     font-size: 14px;
     opacity: .8;
 }
@@ -152,86 +193,79 @@ label {
         Я обещаю ценить тебя, заботиться о тебе и делать всё,
         чтобы рядом со мной ты улыбалась чаще.
     </p>
-    <button class="next" onclick="goTo('page4')">
-        У меня есть ещё кое-что...
-    </button>
-</section>
-<!-- Страница 4: Приглашение на свидание -->
-<section class="screen" id="page4">
-    <h1>Пойдём на свидание? 🌹</h1>
-    <p>
-        Я хочу провести время с тобой, погулять, поговорить
-        обо всём на свете и просто быть рядом.
-    </p>
-    <button class="yes" onclick="goTo('page5')">
-        Давай выберем день ❤️
-    </button>
-</section>
-<!-- Страница 5: Выбор даты -->
-<section class="screen" id="page5">
-    <h1>Наше свидание 💌</h1>
-    <p>Выбери, когда и где тебе было бы удобно.</p>
-    <label for="date">Дата:</label>
-    <input type="date" id="date">
-    <label for="time">Время:</label>
-    <select id="time">
-        <option value="14:00">14:00</option>
-        <option value="15:00">15:00</option>
-        <option value="16:00">16:00</option>
-        <option value="17:00">17:00</option>
-        <option value="18:00">18:00</option>
-        <option value="19:00">19:00</option>
-    </select>
-    <label for="place">Место:</label>
-    <select id="place">
-        <option>Парк 🌳</option>
-        <option>Кафе ☕</option>
-        <option>Прогулка у моря 🌊</option>
-        <option>Кино 🎬</option>
-        <option>Выберем вместе 💗</option>
-    </select>
-    <textarea id="wish" placeholder="Твои пожелания..."></textarea>
-    <button class="yes" onclick="saveDate()">
-        Это мой выбор ❤️
-    </button>
     <button class="next" onclick="goTo('page7')">
-        Почему я тебя люблю?
+        99 причин, почему я тебя люблю ❤️
     </button>
 </section>
-<!-- Страница 6: Подтверждение свидания -->
-<section class="screen" id="page6">
-    <h1>У нас есть план! 💕</h1>
-    <div id="dateSummary"></div>
-    <p>Я уже жду нашей встречи ❤️</p>
-    <button class="yes" onclick="sendEmail()">
-        Отправить ответ по почте 💌
-    </button>
-    <p class="small">
-        Для отправки откроется почтовое приложение.
-    </p>
-    <button class="next" onclick="goTo('page7')">
-        99 причин, почему я тебя люблю
-    </button>
-</section>
-<!-- Страница 7: 99 причин -->
+<!-- Страница 4: 99 причин -->
 <section class="screen" id="page7">
     <h1>99 причин, почему я тебя люблю 💗</h1>
     <div class="reasons" id="reasons"></div>
     <button class="next" onclick="goTo('page8')">
-        И последнее...
+        Наши моменты 📸
     </button>
 </section>
-<!-- Страница 8: Сердце из имени -->
+<!-- Страница 5: Галерея фотографий -->
 <section class="screen" id="page8">
+    <h1>Наши моменты ❤️</h1>
+    <p>
+        Немного воспоминаний о нас и моментов,
+        которые дороги моему сердцу.
+    </p>
+    <div class="gallery">
+        <label class="photo">
+            <input type="file" accept="image/*"
+                   onchange="addPhoto(this, 0)">
+            <img id="photo0" alt="Наше фото 1">
+            <span id="placeholder0">
+                ＋<br>Наше фото
+            </span>
+        </label>
+        <label class="photo">
+            <input type="file" accept="image/*"
+                   onchange="addPhoto(this, 1)">
+            <img id="photo1" alt="Наше фото 2">
+            <span id="placeholder1">
+                ＋<br>Наше фото
+            </span>
+        </label>
+        <label class="photo">
+            <input type="file" accept="image/*"
+                   onchange="addPhoto(this, 2)">
+            <img id="photo2" alt="Наше фото 3">
+            <span id="placeholder2">
+                ＋<br>Наше фото
+            </span>
+        </label>
+        <label class="photo">
+            <input type="file" accept="image/*"
+                   onchange="addPhoto(this, 3)">
+            <img id="photo3" alt="Наше фото 4">
+            <span id="placeholder3">
+                ＋<br>Наше фото
+            </span>
+        </label>
+    </div>
+    <p>Каждый момент с тобой для меня особенный 💗</p>
+    <p class="gallery-hint">
+        Нажми на свободное место, чтобы выбрать фотографию.
+    </p>
+    <button class="next" onclick="goTo('page9')">
+        И последнее... ❤️
+    </button>
+</section>
+<!-- Страница 6: Сердце и виртуальные объятия -->
+<section class="screen" id="page9">
     <h1>Это всё для тебя, Адиля ❤️</h1>
     <div id="heartArt"></div>
     <p>
         Из всех людей в этом мире я рад, что встретил именно тебя.
         Ты для меня особенная. ❤️
     </p>
-    <button class="yes" onclick="celebrate()">
-        Обними меня виртуально 🫂
+    <button class="yes" onclick="hugMe()">
+        Повернись ко мне и обними меня 🫂
     </button>
+    <p id="hugMessage"></p>
 </section>
 <script>
 // Переход между страницами
@@ -241,7 +275,7 @@ function goTo(id) {
     });
     document.getElementById(id).classList.add('active');
     window.scrollTo(0, 0);
-    if (id === 'page8') {
+    if (id === 'page9') {
         createHeartArt();
     }
 }
@@ -317,69 +351,28 @@ function createHeartArt() {
     document.getElementById('heartArt').textContent =
         rows.join('\n');
 }
-// Выбор и сохранение даты свидания
-function saveDate() {
-    const date = document.getElementById('date').value;
-    const time = document.getElementById('time').value;
-    const place = document.getElementById('place').value;
-    const wish = document.getElementById('wish').value;
-    if (!date) {
-        alert('Выбери дату нашего свидания ❤️');
+// Галерея фотографий
+function addPhoto(input, index) {
+    const file = input.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+        alert('Выбери изображение ❤️');
         return;
     }
-    const data = {
-        date: date,
-        time: time,
-        place: place,
-        wish: wish
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const img = document.getElementById('photo' + index);
+        img.src = event.target.result;
+        img.style.display = 'block';
+        document.getElementById('placeholder' + index).style.display = 'none';
     };
-    localStorage.setItem('adilyaDate', JSON.stringify(data));
-    document.getElementById('dateSummary').innerHTML = `
-        <p>📅 Дата: ${escapeHTML(date)}</p>
-        <p>🕒 Время: ${escapeHTML(time)}</p>
-        <p>📍 Место: ${escapeHTML(place)}</p>
-        <p>💌 Пожелание: ${
-            escapeHTML(wish || 'Главное — быть вместе ❤️')
-        }</p>
-    `;
-    goTo('page6');
+    reader.readAsDataURL(file);
 }
-// Защита текста, введённого пользователем
-function escapeHTML(text) {
-    return String(text).replace(/[&<>"']/g, char => ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-    })[char]);
-}
-// Отправка информации по электронной почте
-function sendEmail() {
-    const saved = localStorage.getItem('adilyaDate');
-    if (!saved) {
-        alert('Сначала выбери дату свидания!');
-        return;
-    }
-    const data = JSON.parse(saved);
-    // Замени YOUR_EMAIL на свой настоящий адрес.
-    const email = 'zhubanysh.sharelhan@bk.ru';
-    const subject = encodeURIComponent('Наше свидание ❤️');
-    const body = encodeURIComponent(
-        `Адиля выбрала свидание!\n\n` +
-        `Дата: ${data.date}\n` +
-        `Время: ${data.time}\n` +
-        `Место: ${data.place}\n` +
-        `Пожелание: ${data.wish || 'Нет'}`
-    );
-    if (email === 'YOUR_EMAIL') {
-        alert(
-            'Чтобы получать ответы по почте, замени YOUR_EMAIL на свой адрес в коде.'
-        );
-        return;
-    }
-    window.location.href =
-        `mailto:${email}?subject=${subject}&body=${body}`;
+// Виртуальные объятия
+function hugMe() {
+    celebrate();
+    document.getElementById('hugMessage').textContent =
+        'Иди сюда, моя любимая. Крепко-крепко обнимаю тебя ❤️🫂';
 }
 // 99 причин, почему я люблю Адилю
 const reasonsList = [
